@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Background Removed</h2>
+    <p>Here is your image with the background removed:</p>
+    <img src="{{ image.result_image.url }}" alt="Image with background removed">
+    {% comment %} <a href="{% url 'upload_image' %}">Upload another image</a> {% endcomment %}
+{% endblock %}

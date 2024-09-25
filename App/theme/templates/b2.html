@@ -1,0 +1,88 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    {% tailwind_css %}
+</head>
+<body class="flex flex-col min-h-screen">
+    <nav class="bg-red-200 p-3 justify-center">
+        <div class="flex mx-9 items-center justify-between md:flex-row">
+            <div class="flex items-center text-white">
+                <a href="{% url 'home' %}">
+                    <img class="w-40 h-30 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs8lyFqtyeXSt7VCiqJsTGvKHkP47zpuxTXg&s" alt="">
+                </a>
+                <a class="text-6xl text-white ml-3" href="{% url 'home' %}">Flextrofol</a>
+            </div>
+            <div class="flex justify-end space-x-3 text-3xl font-bold items-center">
+                <a href="{% url 'home' %}" class="text-white hover:text-pink-500">Home</a>
+                <a href="#" class="text-white duration-300 hover:text-pink-500">RemoveBG</a>
+                <a href="#" class="text-white duration-300 hover:text-pink-500">Stock</a>
+                <a href="#" class="text-white duration-300 hover:text-pink-500">Contact</a>
+
+                <!-- User Authentication Links -->
+                {% if user.is_authenticated %}
+                    <div x-data="{ open: false }" class="relative">
+                        <a href="#" @click.prevent="open = !open" class="text-white flex items-center">
+                            <img class="w-20 h-20 rounded-full" :src="{{ request.user.profile_picture.url }}" alt="">
+                        </a>
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                            <a href="{% url 'profile' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
+                            <a href="{% url 'logout' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-white hover:text-pink-500">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <footer class="bg-red-200 text-white py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Company</h2>
+                    <p class="text-gray-400">
+                        We are a leading provider of solutions in the digital era, focused on innovation and customer satisfaction.
+                    </p>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Links</h2>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Follow Us</h2>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Facebook</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Twitter</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Newsletter</h2>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates right in your inbox.</p>
+                    <form class="flex flex-col space-y-2">
+                        <input type="email" placeholder="Enter your email" class="px-4 py-2 bg-white text-white rounded-md">
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-400">
+                <p>&copy; 2024 Company Name. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

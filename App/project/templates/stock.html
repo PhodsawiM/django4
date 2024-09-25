@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="grid grid-cols-2 mx-auto justify-center bg-red-300 w-full">
+    {% for image in key1 %}
+    {% if image.result_image %}
+    <div class="flex flex-row flex-wrap p-5 bg-red-300">
+        <div class=" bg-red-50 rounded-lg container ">
+            <div class="flex justify-center"> 
+                <p class="text-4xl">
+                   Date: {{image.uploaded_at}}
+                </p>
+                
+            </div>
+            <div class="flex flex-row text-center">
+                <div class=" p-3 items-center">
+                    <img src="{{ image.result_image.url }}" class=" h-auto w-11/12">
+                    <button class="text-4xl bg-blue-500 p-5 mt-4 rounded-lg">DOWNLOAD</button>
+                </div>
+                <div class="p-3 items-center">
+                    <img src="{{ image.original_image.url }}" class=" h-auto w-11/12">
+                    <button class="text-4xl bg-red-500 p-5 mt-4 rounded-lg">DELETE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+
+    {% endif %}
+    {% endfor %}
+</div>
+{%endblock%}
